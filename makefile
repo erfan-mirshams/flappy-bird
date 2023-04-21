@@ -1,5 +1,5 @@
 ##
-# makefile-test
+# flappy-bird
 #
 # @file
 # @version 0.1
