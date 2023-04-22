@@ -1,5 +1,7 @@
 #include "../include/general.h"
 #include "../include/game.h"
+#include <SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Window/Event.hpp>
 #include <SFML/Window/VideoMode.hpp>
 #include <SFML/Window/WindowStyle.hpp>
@@ -22,14 +24,30 @@ Game::Game(){
     initWindow();
 }
 
+bool Game::hasTimePassed(){
+    if(clock.getElapsedTime().asMilliseconds() >= ELAPSED_TIME_LIMIT){
+        clock.restart();
+        return true;
+    }
+    return false;
+}
+
+void Game::draw(RenderTarget *target, Sprite sprite){
+    target -> draw(sprite);
+}
+
 void Game::render(){
     window -> clear();
+    draw(window, bird.getSprite());
     window -> display();
 }
 
 void Game::update(){
     pollEvents();
-
+    bird.incrementMovement();
+    if(hasTimePassed()){
+        bird.incrementImage();
+    }
 }
 
 Game::~Game(){
@@ -46,8 +64,9 @@ void Game::pollEvents(){
             case Event::Closed:
                 close();
             break;
-            case Event::KeyPressed:
+            case Event::KeyReleased:
                 if(sfmlEvent.key.code == Keyboard::Space){
+                    bird.jump();
                 }
             break;
         }
