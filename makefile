@@ -15,13 +15,19 @@ TARGET = flappy-bird
 SRC_FILES = $(wildcard $(SRC_DIR)/*.cpp)
 OBJ_FILES = $(addprefix $(BUILD_DIR)/, $(notdir $(SRC_FILES:.cpp=.o)))
 
-$(BIN_DIR)/$(TARGET): $(OBJ_FILES)
+$(BIN_DIR)/$(TARGET): $(OBJ_FILES) | $(BIN_DIR)
 	$(CXX) $(LFLAGS) $^ -o $@
 
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp | $(BUILD_DIR)
 	$(CXX) $(CFLAGS) -o $@ $<
 
+$(BIN_DIR):
+	mkdir -p $@
+
+$(BUILD_DIR):
+	mkdir -p $@
+
 clean:
-	rm -f $(BUILD_DIR)/*.o $(TARGET)
+	rm -rf $(BUILD_DIR) $(BIN_DIR)
 
 # end
