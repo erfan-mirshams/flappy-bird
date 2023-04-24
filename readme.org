@@ -2,3 +2,5 @@
 
 * Flappy Bird
 A simple SFML example
+
+My first dabble with SFML. The game isn't really fancy. You lose when you hit a pipe or go lower than the screen.
