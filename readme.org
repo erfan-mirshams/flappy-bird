@@ -4,3 +4,5 @@
 A simple SFML example
 
 My first dabble with SFML. The game isn't really fancy. You lose when you hit a pipe or go lower than the screen.
+
+** When you compile the program. You have to run the binary from inside the bin directory. Couldn't figure out how to fix that yet :(
