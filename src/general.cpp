@@ -10,3 +10,10 @@ float convertRotation(float degree){
     }
     return degree;
 }
+
+int randomIntBetween(int l, int r){
+    int eq = r - l + 1;
+    int x = rand() % eq;
+    x += l;
+    return x;
+}

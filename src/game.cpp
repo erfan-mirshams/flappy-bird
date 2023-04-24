@@ -5,8 +5,12 @@
 #include <SFML/Window/Event.hpp>
 #include <SFML/Window/VideoMode.hpp>
 #include <SFML/Window/WindowStyle.hpp>
+#include <iostream>
+#include <type_traits>
 
 void Game::initVariables(){
+    walls = new Walls(WALL_SZ);
+    endGame = false;
 }
 
 void Game::initWindow(){
@@ -39,19 +43,28 @@ void Game::draw(RenderTarget *target, Sprite sprite){
 void Game::render(){
     window -> clear();
     draw(window, bird.getSprite());
+    walls -> draw(window);
     window -> display();
 }
 
 void Game::update(){
     pollEvents();
     bird.incrementMovement();
+    walls -> incrementMovement();
+    if(walls -> isTouching(bird.getSprite()) || bird.isLow()){
+        endGame = true;
+    }
     if(hasTimePassed()){
         bird.incrementImage();
+    }
+    if(endGame){
+        close();
     }
 }
 
 Game::~Game(){
     delete window;
+    delete walls;
 }
 
 void Game::close(){
@@ -62,7 +75,7 @@ void Game::pollEvents(){
     while(window -> pollEvent(sfmlEvent)){
         switch(sfmlEvent.type){
             case Event::Closed:
-                close();
+                endGame = true;
             break;
             case Event::KeyReleased:
                 if(sfmlEvent.key.code == Keyboard::Space){

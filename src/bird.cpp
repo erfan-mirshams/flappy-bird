@@ -20,8 +20,12 @@ Bird::Bird(){
     sprite.setPosition(percentage(WIDTH_PERCENTAGE, WIDTH), percentage(HEIGHT_PERCENTAGE, HEIGHT));
 }
 
+bool Bird::isLow(){
+    return (sprite.getPosition().y >= HEIGHT);
+}
+
 void Bird::jump(){
-    velocity = -5 * INITIAL_VELOCITY;
+    velocity = -3 * INITIAL_VELOCITY;
     angular_velocity = -INITIAL_ANGULAR_VELOCITY;
 }
 

@@ -13,9 +13,10 @@
 #define HEIGHT_PERCENTAGE 50
 #define IMG_DIR "../sprites/"
 #include <SFML/Graphics.hpp>
+#include "general.h"
 
-using namespace std;
 using namespace sf;
+using namespace std;
 
 const string fileNames[BIRD_IMG_SZ] = {"yellowbird-downflap.png", "yellowbird-midflap.png", "yellowbird-upflap.png", "yellowbird-midflap.png"};
 
@@ -36,6 +37,7 @@ class Bird {
         void incrementMovement();
         void incrementImage();
         void jump();
+        bool isLow();
 };
 
 #endif // BIRD_H_
